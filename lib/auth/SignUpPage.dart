@@ -32,11 +32,13 @@ class _SignUpPageState extends State<SignUpPage> {
         await Future.delayed(Duration(seconds: 1));
         signUpStatusMessage = await signUpStatus;
       }
+      setState(() {
+        signUpStatusMessage;
+      });
+      if (signUpStatusMessage == 'User created') {
+        user.signIn();
+      }
     }
-
-    setState(() {
-      signUpStatusMessage;
-    });
   }
 
   @override
@@ -99,11 +101,18 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   Container(
-                    child: signUpStatusMessage != null
-                        ? Text(signUpStatusMessage.toString())
-                        : Container(),
-                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  ),
+                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: signUpStatusMessage != null &&
+                              signUpStatusMessage != 'User created'
+                          ? Text(signUpStatusMessage.toString(),
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 240, 78, 67)))
+                          : signUpStatusMessage == 'User created'
+                              ? Text('$signUpStatusMessage! Signing in',
+                                  style: const TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 100, 195, 103)))
+                              : Container()),
                   Container(
                     margin: const EdgeInsets.fromLTRB(17, 0, 17, 0),
                     child: ElevatedButton(
@@ -115,7 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                      child: const Text('Log in'),
+                      child: const Text('Sign up'),
                       onPressed: () => sign_up(
                           email: emailController.text,
                           password: passwordController.text),

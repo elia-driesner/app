@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class Auth {
   late String email;
@@ -29,6 +30,17 @@ class Auth {
           .signInWithEmailAndPassword(
               email: "barry.allen@example.com",
               password: "SuperSecretPassword!");
+      final user = await FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        final name = user.displayName;
+        final email = user.email;
+        final photoUrl = user.photoURL;
+
+        final emailVerified = user.emailVerified;
+
+        final uid = user.uid;
+        debugPrint(uid);
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
