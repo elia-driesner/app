@@ -6,19 +6,20 @@ class Auth {
 
   Auth({required this.email, required this.password});
 
-  void signUp() async {
+  Future<String?> signUp() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: this.email.toString(), password: this.password.toString());
+      return ('User created');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        return ('Weak password');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        return ('Email already in use');
       }
     } catch (e) {
-      print(e);
+      return ('error');
     }
   }
 

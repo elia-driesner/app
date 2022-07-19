@@ -4,7 +4,7 @@ import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'auth/firebaseAuth.dart';
 
-import 'auth/signInPage.dart';
+import 'auth/SignUpPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,7 @@ class App extends StatelessWidget {
           primarySwatch: Colors.orange,
         ),
         home: Scaffold(
-          body: SafeArea(child: signInPage()),
+          body: SafeArea(child: SignUpPage()),
         ));
   }
 }
