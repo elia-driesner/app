@@ -6,10 +6,11 @@ import 'auth/firebaseAuth.dart';
 
 import 'auth/signInPage.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(App());
 }
 
@@ -22,8 +23,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
+        ),
         home: Scaffold(
-      body: signInPage(),
-    ));
+          body: SafeArea(child: signInPage()),
+        ));
   }
 }
