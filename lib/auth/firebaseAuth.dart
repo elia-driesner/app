@@ -28,8 +28,7 @@ class Auth {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
-              email: "barry.allen@example.com",
-              password: "SuperSecretPassword!");
+              email: this.email, password: this.password);
       final user = await FirebaseAuth.instance.currentUser;
       if (user != null) {
         final name = user.displayName;

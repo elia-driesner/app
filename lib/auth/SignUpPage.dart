@@ -36,6 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
         signUpStatusMessage;
       });
       if (signUpStatusMessage == 'User created') {
+        await Future.delayed(Duration(seconds: 2));
         user.signIn();
       }
     }
@@ -116,19 +117,18 @@ class _SignUpPageState extends State<SignUpPage> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(17, 0, 17, 0),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(500, 50),
-                        primary: const Color(0xFFFBB827),
-                        shadowColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(500, 50),
+                          primary: const Color(0xFFFBB827),
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
-                      ),
-                      child: const Text('Sign up'),
-                      onPressed: () => sign_up(
-                          email: emailController.text,
-                          password: passwordController.text),
-                    ),
+                        child: const Text('Sign up'),
+                        onPressed: () => sign_up(
+                            email: emailController.text,
+                            password: passwordController.text)),
                   ),
                   signUpStatusMessage != null &&
                           signUpStatusMessage != 'Password is too short' &&
@@ -138,7 +138,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: CircularProgressIndicator(),
                           margin: const EdgeInsets.fromLTRB(0, 35, 0, 0),
                         )
-                      : Container()
+                      : Container(),
+                  Container(
+                    child: FlatButton(
+                        onPressed: () => {},
+                        child: const Text('Already have an account? Sign in.')),
+                    margin: const EdgeInsets.fromLTRB(0, 230, 0, 0),
+                  )
                 ]))
               ])),
         )
