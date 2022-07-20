@@ -130,21 +130,21 @@ class _SignUpPageState extends State<SignUpPage> {
                             email: emailController.text,
                             password: passwordController.text)),
                   ),
-                  signUpStatusMessage != null &&
-                          signUpStatusMessage != 'Password is too short' &&
-                          signUpStatusMessage != 'Invalid email address' &&
-                          signUpStatusMessage != 'Email already in use'
+                  signUpStatusMessage == 'User created'
                       ? Container(
                           child: CircularProgressIndicator(),
                           margin: const EdgeInsets.fromLTRB(0, 35, 0, 0),
                         )
                       : Container(),
-                  Container(
-                    child: FlatButton(
-                        onPressed: () => {},
-                        child: const Text('Already have an account? Sign in.')),
-                    margin: const EdgeInsets.fromLTRB(0, 230, 0, 0),
-                  )
+                  signUpStatusMessage != 'User created'
+                      ? Container(
+                          child: FlatButton(
+                              onPressed: () => {},
+                              child: const Text(
+                                  'Already have an account? Sign in.')),
+                          margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        )
+                      : Container()
                 ]))
               ])),
         )
