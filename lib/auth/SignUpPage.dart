@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'firebaseAuth.dart';
+import 'SignInPage.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -27,18 +28,9 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() {
         signUpStatusMessage = '';
       });
-      signUpStatusMessage = await signUpStatus;
-      while (signUpStatusMessage == '') {
-        await Future.delayed(Duration(seconds: 1));
-        signUpStatusMessage = await signUpStatus;
-      }
       setState(() {
         signUpStatusMessage;
       });
-      if (signUpStatusMessage == 'User created') {
-        await Future.delayed(Duration(seconds: 2));
-        user.signIn();
-      }
     }
   }
 
@@ -139,7 +131,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   signUpStatusMessage != 'User created'
                       ? Container(
                           child: FlatButton(
-                              onPressed: () => {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const SignInPage()),
+                                );
+                              },
                               child: const Text(
                                   'Already have an account? Sign in.')),
                           margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
